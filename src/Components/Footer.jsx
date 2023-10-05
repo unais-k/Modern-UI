@@ -1,6 +1,7 @@
 import { logo } from "../assets";
 import { footerLinks, socialMedia } from "../constants";
 import styles from "../style";
+import Accordion from "./Accordian";
 
 const Footer = () => (
     <section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
@@ -11,27 +12,36 @@ const Footer = () => (
                     A new way to make the payment easy, reliable and secure
                 </p>
             </div>
-            <div className={`flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10`}>
+            <div className="hidden sm:block w-full">
+                <div className={`flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10`}>
+                    {footerLinks.map((footerLink) => (
+                        <div className="flex flex-col ss:my-0 my-4 min-w-[150px]" key={footerLink.id}>
+                            <h4
+                                className={`font-poppins font-medium text-[18px] leading-[27px] text-dimWhite hover:text-secondary cursor-pointer`}
+                            >
+                                {footerLink.title}
+                            </h4>
+                            <ul className="list-none mt-4">
+                                {footerLink.links.map((link, index) => (
+                                    <li
+                                        key={index}
+                                        className={`font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer ${
+                                            index !== footerLink.links.length - 1 ? "mb-4" : "mb-0"
+                                        } `}
+                                    >
+                                        {link.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+        <div className="sm:hidden block w-full m-10">
+            <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap">
                 {footerLinks.map((footerLink) => (
-                    <div className="flex flex-col ss:my-0 my-4 min-w-[150px]" key={footerLink.id}>
-                        <h4
-                            className={`font-poppins font-medium text-[18px] leading-[27px] text-dimWhite hover:text-secondary cursor-pointer`}
-                        >
-                            {footerLink.title}
-                        </h4>
-                        <ul className="list-none mt-4">
-                            {footerLink.links.map((link, index) => (
-                                <li
-                                    key={index}
-                                    className={`font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer ${
-                                        index !== footerLink.links.length - 1 ? "mb-4" : "mb-0"
-                                    } `}
-                                >
-                                    {link.name}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <Accordion key={footerLink.id} {...footerLink} />
                 ))}
             </div>
         </div>
